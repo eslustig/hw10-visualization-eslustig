@@ -10,8 +10,23 @@ import matplotlib.pyplot as plt
 # "Wed", "Thu", "Fri", "Sat") and the number of tweets on the named day as the values
 #
 # cur - the database cursor
+conn = sqlite3.connect('tweets.sqlite')
+my_cur = conn.cursor()
+
 def getDayDict(cur):
-    pass
+	week_dict = {}
+	data = cur.execute('SELECT time_posted FROM Tweets')
+	for line in data:
+		date = line[0]
+		split_date = date.split()
+		day = split_date[0]
+		if day not in week_dict:
+			week_dict[day] = 1
+		else:
+			week_dict[day] += 1
+	return week_dict
+
+a1 = getDayDict(my_cur)
 
 ## [Part 2]
 # Finish writing the function drawBarChart which takes the dictionary and draws a bar 
@@ -21,7 +36,11 @@ def getDayDict(cur):
 #
 # dayDict - a dictionary with the days of the week and the number of tweets per day
 def drawBarChart(dayDict):
-    pass
+
+
+
+
+
 
 ## [Part 3]
 ## Create unittests to test the function
@@ -30,6 +49,7 @@ def drawBarChart(dayDict):
 # Write the test_getDayDict function to test getDayDict by comparing the returned dictionary to the 
 # expected value.  Also call drawBarChart in test_getDayDict. 
 class TestHW10(unittest.TestCase):
+
 
 # run the main method
 if __name__ == "__main__":
