@@ -26,7 +26,6 @@ def getDayDict(cur):
 			week_dict[day] += 1
 	return week_dict
 
-a1 = getDayDict(my_cur)
 
 ## [Part 2]
 # Finish writing the function drawBarChart which takes the dictionary and draws a bar 
@@ -44,7 +43,7 @@ def drawBarChart(dayDict):
 	plt.title("Tweets Per Given Day of the Week")
 	plt.show()
 
-drawBarChart(a1)
+#drawBarChart(a1)
 
 
 
@@ -57,12 +56,17 @@ drawBarChart(a1)
 # Write the test_getDayDict function to test getDayDict by comparing the returned dictionary to the 
 # expected value.  Also call drawBarChart in test_getDayDict. 
 class TestHW10(unittest.TestCase):
-	def setup(self):
-		self.conn = sqlite3.connect('tweets.sqlite')
-		self.cur = self.conn.cursor()
+	conn = sqlite3.connect('tweets.sqlite')
+	cur = conn.cursor()
 
 	def test_getDayDict(self):
-		
+		self.test = getDayDict(self.cur)
+		self.assertEqual(3, len(self.test))
+		self.assertEqual(77, self.test['Tue'])
+		self.assertEqual(69, self.test['Mon'])
+		self.assertEqual(90, self.test['Wed'])
+		drawBarChart(self.test)
+
 
 
 
